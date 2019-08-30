@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+    <% include partials/head.html%>
+</head>
+<body > 
+        <% include partials/navigation.html%>
+        
+        <h1 style="color:#FFFFFF";> Calculadora de subneteo</h1>
+
+<div class="contact-form"  >
+	<img src="https://media.giphy.com/media/1lvotGQwhzi6O0gQtV/giphy.gif" alt="Binary Gif" width="320" height="130" />
+	<p><strong>Ingresa los datos correspondientes a cada campo</strong> </p>
+	
+	<div class ="container">
+		<div class= "row mt-4"  >
+			<div class = "col-lg-12">
+					<div class="card"  >
+
+						<center>
+
+							<form id="formxd" action="/calculadora" method="POST">
+							<div class="card-body" >
+
+								<div class="form-group" >
+											<input type="number" name="ip" placeholder="Introduzca su ip" class="form-control datoInput" autofocus> 
+								</div>	
+
+								<div class="form-group">
+											<input type="number" name="mask"  placeholder="Introduzca mascara de red" class="form-control datoInput"  > 
+								</div>
+
+								<div class="form-group">
+											<input type="number" name="subre" placeholder="introduuzca las subredes" class="form-control datoInput"> 
+							</div>
+
+							<div class="form-group">
+									<input type="number" name="host" placeholder="numero de Host" class="form-control datoInput"> 
+							</div>
+
+
+                            <!--Boton1-->
+                            <button type="submit" class="btn btn-primary">Calcular </button>
+                                                      
+							<!--Boton 2-->
+                            <input type="button" onclick="myFunction();" value="Reset" class="btn btn-primary"> 
+                           
+							<script>
+									function myFunction() {
+									  document.getElementById("formxd").reset();
+									}
+							</script>
+							<script>
+                                  
+							</script>
+                        </form>
+                        
+						</center>	
+						</div>			
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div> 
+    
+</body>
+</html>
