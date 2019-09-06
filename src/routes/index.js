@@ -5,6 +5,16 @@ const Proceso =require('../Proceso/to2alv');
 const app= express();
 
 
+const index = (req, res) =>{
+    var mask ='';
+    res.render('index',{mask});
+}
+
+
+/*router.get('/calculadora',Proceso.index);
+router.get(''),(req,res)=>{
+    res.render('index.html',{Titulo:'Inicio'});
+    */
 
 
 
@@ -15,11 +25,12 @@ const app= express();
   router.post('/calculo',  (req, res) =>  {
       console.log(req.body);
       res.render('calc.ejs',{Titulo:'equisde', ip: 'ip'});
-      router.post('/calculo', Proceso.to2alv);
-   // res.send("Direccion ip:" + req.body.ip + "Mascara" + req.body.mask); 
+
+      router.post('/calculo', Proceso.calculate(req, res));
+        res.send("Direccion ip:" + req.body.ip + "Mascara" + req.body.mask); 
     
- 
-});
+  })
+
 
 
 /*router.get('/', Proceso.to2alv);
@@ -30,10 +41,11 @@ router.post('/calculador', function(req,res, next){
 }); (Proceso.calculador);
 
 //rutas*/
-router.get('/calculadora',(req, res) => {
-    res.render('calc.html', {Titulo: 'Calculadora'}); 
+router.get('/calculadora',Proceso.index);
+
+  // res.render('calc.ejs', {Titulo: 'Calculadora'}); 
  
-})
+//})
 
 router.get('/',(req, res) => {
     res.render('index.html', {Titulo: 'Inicio'}); 
@@ -46,9 +58,4 @@ router.get('/memes',(req, res) => {
     res.render('memes.html', {Titulo: 'Memes'}); 
  
 })
-
-
-
-
-
 module.exports =router;

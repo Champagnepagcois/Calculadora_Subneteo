@@ -34,6 +34,7 @@ app.use (require ('./routes/index'));
 //static files
 
 app.use(express.static(path.join(__dirname, 'Public')))
+//app.use(express.static(path.join(__dirname, 'views')))
 
 
 //escuchando servidor 

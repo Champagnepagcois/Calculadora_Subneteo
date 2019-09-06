@@ -1,5 +1,150 @@
+
+//const validator = require('validator');
+const index = (req, res)=> {
+    const binaryIP= '';
+    const IpClass = '';
+    const netmaskCIDR= '';
+    const ipPrivate= '';
+    const nextNetmask='';
+    const totalSubnets='';
+    const subred = '';
+    const broadcast='';
+    const principal=true;
+    const error = false;
+
+    res.render('index', { binaryIP, ipClass, netmaskCIDR, ipPrivate, nextNetmask, totalHosts, totalSubnets, subred, broadcast, principal, error });
+
+}
+
+const calculate = (req, res) => {
+    const { ip, cidr, host, nSubnet, radio1, radio2 } = req.body;
+    var { mask } = req.body
+
+    var netmaskCIDR = false;
+    var nextNetmask = null;
+    var totalHosts = null;
+    var totalSubnets = null;
+    /*
+
+    // Validar campos
+    var correctValues = 3;
+
+    if (validator.isIP(ip) && !validator.isEmpty(ip)) {
+        correctValues--;
+    }
+    if (radio1 == 'CIDR') {
+        if (!validator.isEmpty(cidr)) {
+            if (validator.isInt(cidr, { min: 0, max: 32, allow_leading_zeroes: true })) {
+                correctValues--;
+            }
+        }
+    }
+    if (radio1 == 'Mask') {
+        if (!validator.isEmpty(mask)) {
+            if (validator.isIP(mask)) {
+                correctValues--;
+            }
+        }
+    }
+    if (radio2 == 'Hosts') {
+        if (!validator.isEmpty(hosts)) {
+            if (validator.isInt(host, { min: 2, max: 4294967294, allow_leading_zeroes: true })) {
+                correctValues--;
+            }
+        }
+    }
+    if (radio2 == 'Subnets') {
+        if (!validator.isEmpty(nSubnet)) {
+            if (validator.isInt(nSubnet, { allow_leading_zeroes: true })) {
+                correctValues--;
+            }
+        }
+    }
+
+    // Errores
+    var principal = true;
+    var error = false;
+
+    // Campos correctos
+    if (correctValues == 0) {
+        // Dirección IP a Binario
+        var binaryIP = IPToBinary(StringToIP(ip));
+        console.log('Dirección IP a Binario: ', binaryIP);
+
+        // Clase de IP
+        var ipClass = IPClass(StringToIP(ip));
+        console.log('Clase de IP: ', ipClass);
+
+        // Máscara de Red con CIDR
+        if (radio1 == 'CIDR') {
+            mask = IPToString(BinaryToIP(StringToIP(CIDRToNetmask(cidr))));
+            netmaskCIDR = true;
+            console.log('Máscara de Red con CIDR: ', netmaskCIDR);
+        }
+
+        // IP Privada
+        var ipPrivate = IsPrivate(StringToIP(ip));
+        console.log('IP Privada: ', ipPrivate);
+
+        // Nueva Máscara de Red por subredes
+        if (radio2 == 'Subnets') {
+            nextNetmask = IPToString(BinaryToIP(StringToIP(NextNetmaskBySubnet(PowerToInt(nSubnet), IPToBinary(StringToIP(mask))))));
+            console.log('Nueva Máscara de red por subredes: ', nextNetmask);
+        }
+
+        // Nueva Máscara de red por hosts
+        if (radio2 == 'Hosts') {
+            nextNetmask = IPToString(BinaryToIP(StringToIP(NextNetmaskByHosts(host))));
+            console.log('Nueva Máscara de red por hosts: ', nextNetmask);
+        }
+
+        // Número de hosts por subredes
+        if (radio2 == 'Subnets') {
+            totalHosts = HostBySubnet(NextNetmaskBySubnet(PowerToInt(nSubnet), IPToBinary(StringToIP(netmask))));
+            totalSubnets = nSubnet;
+            console.log('Hosts por subredes: ', totalHosts);
+        }
+
+        // Número de subredes por hosts
+        if (radio2 == 'Hosts') {
+            totalSubnets = SubnetsByHosts(IPToBinary(StringToIP(nextNetmask)));
+            totalHosts = hosts;
+            console.log('Subredes por hosts: ', SubnetsByHosts(StringToIP(nextNetmask)));
+        }
+
+        // Subredes requeridas
+        const subnetsArray = GetTotalSubnets(StringToIP(ip), mask, nextNetmask);
+        var subnets = [];
+        for (let i = 0; i < subnetsArray.length; i++) {
+            subred[i] = IPToString(subnetsArray[i]);
+        }
+        console.log('Subredes requeridas: ', subred);
+
+        // Broadcast de subredes
+        var broadcast = [];
+        for (let i = 0; i < subnetsArray.length; i++) {
+            broadcast[i] = IPToString(GetBroadcast(subnetsArray[i], StringToIP(nextNetmask)));
+        }
+        console.log('Direcciones Broadcast: ', broadcast);
+
+        principal = false;
+    } else {
+        var binaryIP = '';
+        var ipClass = '';
+        var netmaskCIDR = '';
+        var ipPrivate = '';
+        var nextNetmask = '';
+        var totalHosts = '';
+        var totalSubnets = '';
+        var subnets = [];
+        var broadcast = [];
+        error = true;
+    }
+
+    res.render('index', { binaryIP, ipClass, netmaskCIDR, mask, ipPrivate, nextNetmask, totalHosts, totalSubnets, subred, broadcast, principal, error });
+}*/
 const index = (req, res) => {
-    res.render('index');
+    res.render('calc');
 }
 
 const calculate = (req, res) => {
@@ -10,10 +155,10 @@ const calculate = (req, res) => {
     console.log('IP privada: ', IsPrivate(ipInt));
     console.log('Mascara de Red por CIDR: ', IPToString(BinaryToIP(StringToIP(CIDRToNetmask(mask)))));
     console.log('Máscara Ampliada con subredes: ', IPToString(StringToIP(NextNetmaskBySubnet(PowerToInt(subred), StringToIP(IPToBinary(StringToIP(mask)))))));
-    console.log('Host por subred', HostBySubnet(NextNetmaskBySubnet(PowerToInt(nSubnet), StringToIP(IPToBinary(StringToIP(mask))))));
+    console.log('Host por subred', HostBySubnet(NextNetmaskBySubnet(PowerToInt(subred), StringToIP(IPToBinary(StringToIP(mask))))));
     console.log('Máscara Ampliada con hosts: ', IPToString(StringToIP(NextNetmaskByHosts(host))));
     console.log('Número de subredes: ', SubnetsByHosts(StringToIP(NextNetmaskByHosts(host))));
-    console.log('Broadcast: ', GetBroadcast(ipsInt, StringToIP(mask)));
+    console.log('Broadcast: ', GetBroadcast(ipInt, StringToIP(mask)));
 
     res.redirect('/');
 }
@@ -72,10 +217,10 @@ function IPClass(ipInt) {
  */
 function IPToBinary (ipInt) {
     var numBinary = '';
-    var binaryIP = '';
-    for (let i = 0; i < ipsInt.length; i++) {
+    var binaryIP = '';ipInt
+    for (let i = 0; i < ipInt.length; i++) {
         if (ipInt[i].toString(2).length != 8) {
-            numBinary = ipsInt[i].toString(2)
+            numBinary = ipInt[i].toString(2)
             while (numBinary.length != 8) {
                 numBinary = '0' + numBinary;
             }
@@ -167,7 +312,7 @@ function NextNetmaskBySubnet(p, mask) {
     var count = '';
     var nextNetmask = '';
     let j = 0
-    for (let i = 0; i < netmask.length; i++) {
+    for (let i = 0; i < mask.length; i++) {
         if (parseInt(mask[i], 2) != 255 && j == 0) {
             for (; p > 0; p--) {
                 count += '1';
@@ -275,8 +420,7 @@ function GetBroadcast(ip, mask) {
     var broadcast = [];
     var count = 0;
     var n = 0;
-    console.log(ip);
-    console.log(mask);
+    
     for (let i = 0; i < mask.length; i++) {
         if (mask[i] == 255) {
             broadcast[i] = ip[i];
@@ -286,7 +430,17 @@ function GetBroadcast(ip, mask) {
         }
         if (mask[i] != 0 && mask[i] != 255) {
             count = 256 - mask[i];
-            while (n < ip[i]) {
+            do{
+                n+=count;
+
+            } while (n<=ip[i]);
+            n--;
+            broadcast[i]=n;
+        }
+    }
+}    
+
+           /* while (n < ip[i]) {
                 n += count;
             }
             n--;
@@ -294,9 +448,12 @@ function GetBroadcast(ip, mask) {
         }
     }
     return broadcast;
-}
+}*/
+}}
 
-module.exports = {
-    index,
-    calculate
+    module.exports = {
+        index, calculate
 };
+
+
+
